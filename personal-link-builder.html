@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal link builder · Hetherington Experience</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Archivo:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#152E38;--slate:#2E4E5C;--soft:#3E6373;--cel:#D9E0C2;--celd:#B9C69B;--paper:#F7F6F1;--line:rgba(21,46,56,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Archivo',Arial,sans-serif;background:var(--paper);color:var(--slate);padding:clamp(24px,5vw,56px);line-height:1.55}
+.wrap{max-width:980px;margin:0 auto}
+h1{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,42px);color:var(--navy)}
+h1 em{color:var(--soft)}
+p.lead{margin-top:10px;max-width:680px}
+label span{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:26px 0 8px}
+input,textarea{width:100%;font:inherit;font-size:15px;background:#fff;border:1px solid var(--line);border-radius:4px;padding:12px 14px;color:var(--navy)}
+textarea{min-height:180px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+input:focus,textarea:focus{outline:none;border-color:var(--soft);box-shadow:0 0 0 4px rgba(185,198,155,.35)}
+.btn{margin-top:18px;background:var(--navy);color:#fff;border:0;border-radius:100px;padding:14px 26px;font:inherit;font-weight:600;letter-spacing:.05em;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--navy);border:1px solid var(--line);margin-left:8px}
+table{width:100%;border-collapse:collapse;margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden;font-size:14px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);background:#EFEDE5}
+td.url{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;word-break:break-all;color:var(--soft)}
+td button{background:var(--cel);color:var(--navy);border:0;border-radius:100px;padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.note{margin-top:18px;font-size:13px;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Personal link <em>builder</em></h1>
+  <p class="lead">Each client gets their own link, so the form greets them by name ("Dear James,") and their details are already filled in. Paste your client list below, one person per line, as <strong>Name, Company, Email</strong>. Nothing typed here leaves this computer.</p>
+
+  <label><span>Form address (once it's live)</span>
+    <input id="base" value="https://experience.hetherington.net.au/">
+  </label>
+  <label><span>Clients: Name, Company, Email</span>
+    <textarea id="list" placeholder="James Hartley, Example Resources, james@example.com.au&#10;Sarah Ng, Example Minerals, sarah@example.com"></textarea>
+  </label>
+  <button class="btn" id="make">Create links</button>
+  <button class="btn ghost" id="csv" hidden>Download as spreadsheet (CSV)</button>
+
+  <table id="out" hidden>
+    <thead><tr><th>Client</th><th>Personal link</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <p class="note">Tip: paste the link behind a button or the words "Share what you enjoy" in David's email, rather than showing the full address.</p>
+</div>
+<script>
+function b64url(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+var rows=[];
+document.getElementById('make').onclick=function(){
+  var base=document.getElementById('base').value.trim(); if(base.indexOf('?')<0&&!/\/$/.test(base)&&!/\.html$/.test(base))base+='/';
+  rows=document.getElementById('list').value.split(/\n/).map(function(l){return l.trim()}).filter(Boolean).map(function(l){
+    var p=l.split(',').map(function(x){return x.trim()});
+    var d={n:p[0]||'',c:p[1]||'',e:p[2]||''};
+    return {n:d.n,c:d.c,e:d.e,url:base+'?p='+b64url(JSON.stringify(d))};
+  });
+  var tb=document.querySelector('#out tbody'); tb.innerHTML='';
+  rows.forEach(function(r){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td><strong></strong><br><span></span></td><td class="url"></td><td><button>Copy link</button></td>';
+    tr.querySelector('strong').textContent=r.n; tr.querySelector('span').textContent=r.c;
+    tr.querySelector('.url').textContent=r.url;
+    tr.querySelector('button').onclick=function(){var b=this;navigator.clipboard.writeText(r.url).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy link'},1500)})};
+    tb.appendChild(tr);
+  });
+  document.getElementById('out').hidden=!rows.length;
+  document.getElementById('csv').hidden=!rows.length;
+};
+document.getElementById('csv').onclick=function(){
+  var q=function(s){return '"'+String(s).replace(/"/g,'""')+'"'};
+  var csv=['Name,Company,Email,Personal link'].concat(rows.map(function(r){return [r.n,r.c,r.e,r.url].map(q).join(',')})).join('\r\n');
+  var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='hetherington-experience-links.csv'; a.click();
+};
+</script>
+</body>
+</html>
