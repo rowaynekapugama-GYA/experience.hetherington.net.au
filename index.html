@@ -10,6 +10,8 @@
 <meta property="og:title" content="Hetherington Experience">
 <meta property="og:description" content="A personal note from David Salim, and a few questions about what you enjoy.">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/hetherington-icon.png">
+<link rel="apple-touch-icon" href="assets/hetherington-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
@@ -115,8 +117,8 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
 .grid2 .field{margin-top:14px}
 @media (max-width:560px){.grid2{grid-template-columns:1fr}}
 .input.err{border-color:#A4523F;box-shadow:0 0 0 4px rgba(164,82,63,.12)}
-.errmsg{display:none;font-size:13px;color:#A4523F;margin-top:7px}
-.errmsg.on{display:block}
+.errmsg,.field > .errmsg{display:none;font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:#A4523F;margin:7px 0 0}
+.errmsg.on,.field > .errmsg.on{display:block}
 
 /* chips */
 .chips{display:flex;flex-wrap:wrap;gap:10px}
@@ -165,7 +167,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
 <section class="screen welcome on" id="welcome" aria-labelledby="w-title">
   <div class="welcome-inner fade">
     <div class="brandbar">
-      <img src="https://hetherington.net.au/wp-content/uploads/2024/10/HetheringtonHorizontal-EV.png" alt="Hetherington">
+      <img src="assets/hetherington-logo-light.png" alt="Hetherington">
       <span class="pvt">Private &middot; By invitation</span>
     </div>
 
@@ -183,7 +185,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
         <p>To make sure what we extend is genuinely right for you, I'd like to ask one simple question.</p>
         <p class="ask">What do you enjoy?</p>
         <div class="sig">
-          <img class="av js-host-photo" src="https://hetherington.net.au/wp-content/uploads/2024/10/Team-Board-David-Salim-new.jpg" alt="">
+          <img class="av js-host-photo" src="assets/david-salim.jpg" alt="">
           <div>
             <div class="nm js-host-name">David Salim</div>
             <div class="tt js-host-title">CEO &amp; Principal Solicitor</div>
@@ -195,7 +197,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
         </div>
       </div>
       <figure class="portrait">
-        <div class="ph"><img class="js-host-photo" src="https://hetherington.net.au/wp-content/uploads/2024/10/Team-Board-David-Salim-new.jpg" alt="David Salim"></div>
+        <div class="ph"><img class="js-host-photo" src="assets/david-salim.jpg" alt="David Salim"></div>
         <figcaption><span class="js-host-name">David Salim</span>, Hetherington</figcaption>
       </figure>
     </div>
@@ -206,7 +208,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
 <section class="screen formwrap" id="formScreen">
   <div class="fbar">
     <div class="fbar-in">
-      <img src="https://hetherington.net.au/wp-content/uploads/2024/10/HetheringtonHorizontal-MAIN.png" alt="Hetherington">
+      <img src="assets/hetherington-logo-dark.png" alt="Hetherington">
       <span class="count" id="count" aria-live="polite">1 of 6</span>
     </div>
     <div class="progress" id="progress"></div>
@@ -435,7 +437,7 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
 <!-- ═════════════ THANK YOU ═════════════ -->
 <section class="screen thanks" id="thanks" aria-labelledby="t-title">
   <div class="thanks-in fade">
-    <img class="logo" src="https://hetherington.net.au/wp-content/uploads/2024/10/HetheringtonHorizontal-EV.png" alt="Hetherington">
+    <img class="logo" src="assets/hetherington-logo-light.png" alt="Hetherington">
     <div class="rule"></div>
     <h2 id="t-title" tabindex="-1"><span id="tName">Thank you.</span><br><em>I look forward to it.</em></h2>
     <p>I really appreciate you taking the time. Your answers will help us make sure that whatever we extend next feels like it was chosen with you in mind, because it was.</p>

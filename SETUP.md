@@ -85,3 +85,7 @@ If a send ever fails, the client keeps their answers on screen and can retry, or
 
 To change wording, edit `index.html`; each step is clearly marked. If a question is added or
 renamed, add the same name to the `FIELDS` list in `api/submit.js` so it appears in the email.
+
+## Images
+
+The logo, icon and David's photo live in the `assets` folder, so the form no longer depends on the WordPress site. Upload the `assets` folder along with everything else.

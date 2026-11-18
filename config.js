@@ -19,5 +19,5 @@ window.HX_CONFIG = {
   // David's photo and sign-off on the welcome letter
   hostName: "David Salim",
   hostTitle: "CEO & Principal Solicitor",
-  hostPhoto: "https://hetherington.net.au/wp-content/uploads/2024/10/Team-Board-David-Salim-new.jpg"
+  hostPhoto: "assets/david-salim.jpg"
 };
